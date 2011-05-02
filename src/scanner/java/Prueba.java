@@ -2,22 +2,22 @@ package scanner.java;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
-import java.util.Map;
+import java.util.List;
 
-import org.codehaus.jettison.json.JSONObject;
+import scanner.token.Token;
 
 
 public class Prueba {
 	public static void main(String[] args) throws Exception{
-//		String forscan = "aa.b10 ";
-//		JavaScanner scanner = new JavaScanner();
-//		List<Token> tokens = scanner.scan(forscan);
-//		System.out.println(tokens);
+		String forscan = "aa b ";
+		JavaScanner scanner = new JavaScanner();
+		List<Token> tokens = scanner.scan(forscan);
+		System.out.println(tokens);
 		
-		String json = Prueba.readFileAsString("javaconf.json");
-		JSONObject jsonOb = new JSONObject(json);
-		JSONObject delta = (JSONObject)jsonOb.get("delta");
-		System.out.println(jsonOb.toString());
+//		String json = Prueba.readFileAsString("javaconf.json");
+//		JSONObject jsonOb = new JSONObject(json);
+//		JSONObject delta = (JSONObject)jsonOb.get("delta");
+//		System.out.println(jsonOb.toString());
 	}
 	
 	/**

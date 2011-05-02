@@ -1,0 +1,86 @@
+{
+	delta:{
+		q0:{
+			alpha:id,
+			num:int,
+			" ":blk_final,
+			";":eos_final,
+			"$":eof_final
+		},
+		id:{
+			alpha:id,
+			num:id,
+			" ":id_final,
+			";":id_final,
+			"$":id_final,
+			".":id_final
+		},
+		int:{
+			num:int,
+			".":real_temp,
+			alpha:int_final,
+			"$":int_final,
+			" ":int_final
+		},
+		real_temp:{
+			num:real
+		},
+		real:{
+			num:real,
+			alpha:real_final,
+			" ":real_final,
+			"$":real_final,
+			";":real_final
+		}
+	},
+	
+	alias:{
+		num:["0","1","2","3","4","5","6","7","8","9"],
+		alpha:[“a“,“b“,“c“,“d“,“e“,“f“,“g“,“h“,“i“,“j“,“k“,“l“,“m“,“n“,“o“,“p“,“q“,“r“,“s“,“t“,“u“,“v“,“w“,“x“,“y“,“z“]
+	},
+	
+	stateActions:{
+		id:{
+			push:true
+		},
+		id_final:{
+			token_id:ID,
+			return_value:true,
+			reset:true
+		},
+		int:{
+			push:true
+		},
+		int_final:{
+			token_id:INT,
+			return_value:true,
+			reset:true
+		},
+		real:{
+			push:true
+		},
+		real_temp:{
+			push:true
+		},
+		real_final:{
+			token_id:REAL,
+			return_value:true,
+			reset:true
+		},
+		blk_final:{
+			token_id:BLK,
+			return_value:false,
+			reset:false
+		},
+		eof_final:{
+			token_id:EOF,
+			return_value:false,
+			reset:false
+		},
+		eos_final:{
+			token_id:EOS,
+			return_value:false,
+			reset:false
+		}
+	}
+}

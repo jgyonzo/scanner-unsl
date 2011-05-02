@@ -4,6 +4,11 @@ public class Token {
 	private String code;
 	private String value;
 	
+	@Override
+	public String toString(){
+		return String.format("token:[code: %s,value: %s]",code,value);
+	}
+	
 	public String getCode() {
 		return code;
 	}

@@ -1,29 +1,33 @@
 package scanner.java;
 
+import static scanner.util.Util.readFileAsString;
+
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
+
+import org.codehaus.jettison.json.JSONObject;
 
 import scanner.token.Token;
 
 /**
  * Analizador lexicografico para java (simplificado)
+ * - Automatas y lenguajes - UNSL - 2011
  * @author jgyonzo, msoria
  */
 public class JavaScanner {
 	private List<Token> tokensFound;
 	private String currentState;
 	private String cola;
-	private Map<String,Map<Character,String>> delta;
-	private Map<String,Map<String,Object>> stateActions;
+	private JSONObject delta;
+	private JSONObject stateActions;
 	
-	public JavaScanner(){
+	public JavaScanner() throws Exception{
 		tokensFound = new ArrayList<Token>();
 		cola = "";
 		currentState = "q0";
-		initDelta();
-		initStateActions();
+		JSONObject cfg = new JSONObject(readFileAsString("javaconf.json"));
+		delta = cfg.getJSONObject("delta");
+		stateActions = cfg.getJSONObject("stateActions");
 	}
 	
 	public List<Token> scan(String input) throws Exception{
@@ -33,14 +37,15 @@ public class JavaScanner {
 		
 		int pos = 0;
 		while(pos < input.length()){
-			Character currentChar = input.charAt(pos++);
+			Character charAt = input.charAt(pos++);
+			String currentChar = charAt.toString();
 			
-			if(delta.get(currentState).containsKey(currentChar)){
-				String nextState = delta.get(currentState).get(currentChar);
+			if(delta.getJSONObject(currentState).has(currentChar)){
+				String nextState = delta.getJSONObject(currentState).getString(currentChar);
 				currentState = nextState;
-				if(stateActions.containsKey(currentState)){
-					Map<String,Object> actions = stateActions.get(currentState);
-					if(actions.containsKey("push") && (Boolean)actions.get("push")){
+				if(stateActions.has(currentState)){
+					JSONObject actions = stateActions.getJSONObject(currentState);
+					if(actions.has("push") && actions.getBoolean("push")){
 						cola+=currentChar;
 					} else { //estado final
 						Token token = new Token();
@@ -64,61 +69,5 @@ public class JavaScanner {
 			}
 		}
 		return tokensFound;
-	}
-	
-	private void initDelta(){
-		delta = new HashMap<String,Map<Character,String>>();
-		Map<Character,String> q0 = new HashMap<Character,String>();
-		q0.put('a', "id");
-		q0.put('b', "id");
-		q0.put('c', "id");
-		q0.put('0', "int");
-		q0.put('1', "int");
-		q0.put(' ', "blk_final");
-		q0.put('$', "eof_final");
-		q0.put(';', "eos_final");
-		
-		delta.put("q0", q0);
-		
-		Map<Character,String> id = new HashMap<Character,String>();
-		id.put('a', "id");
-		id.put('b', "id");
-		id.put('c', "id");
-		id.put('0', "id");
-		id.put('1', "id");
-		id.put(' ', "id_final");
-		id.put('$', "id_final");
-		id.put(';', "id_final");
-		
-		delta.put("id", id);
-	}
-	
-	private void initStateActions(){
-		stateActions = new HashMap<String,Map<String,Object>>();
-		Map<String,Object> ida = new HashMap<String,Object>();
-		ida.put("push", true);
-		
-		stateActions.put("id", ida);
-		
-		Map<String,Object> idf = new HashMap<String,Object>();
-		idf.put("token_id", "ID");
-		idf.put("reset", true);
-		idf.put("return_value", true);
-		
-		stateActions.put("id_final", idf);
-		
-		Map<String,Object> blkf = new HashMap<String,Object>();
-		blkf.put("token_id", "BLK");
-		blkf.put("reset", false);
-		blkf.put("return_value", false);
-		
-		stateActions.put("blk_final", blkf);
-		
-		Map<String,Object> eosf = new HashMap<String,Object>();
-		eosf.put("token_id", "EOS");
-		eosf.put("reset", false);
-		eosf.put("return_value", false);
-		
-		stateActions.put("eos_final", eosf);
 	}
 }
