@@ -1,1 +1,2 @@
-string s "lalala"$
+String s "lalala";
+

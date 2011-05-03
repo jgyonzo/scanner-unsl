@@ -88,7 +88,6 @@ public class JavaScanner {
 				currentState = nextState;
 				if(stateActions.has(currentState)){
 					JSONObject actions = stateActions.getJSONObject(currentState);
-					
 					if(isFinal(currentState)){
 						//ejecuta las acciones de estado final
 						Token token = new Token();

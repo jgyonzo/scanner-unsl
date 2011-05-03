@@ -1,5 +1,7 @@
 package scanner.java;
 
+import static scanner.util.Util.readFileAsString;
+
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.util.List;
@@ -12,7 +14,7 @@ import scanner.token.Token;
 
 public class Prueba {
 	public static void main(String[] args) throws Exception{
-		String forscan = "aac aa b aaa;";
+		String forscan = readFileAsString("source.java");
 		JavaScanner scanner = new JavaScanner();
 		List<Token> tokens = scanner.scan(forscan);
 		System.out.println(tokens);
