@@ -58,19 +58,23 @@
 			token_id:INT,
 			return_value:true,
 			reset:true,
-			check_keyword:false
+			check_keyword:false,
+			check_length:false
 		},
 		real_final:{
 			token_id:REAL,
 			return_value:true,
 			reset:true,
-			check_keyword:false
+			check_keyword:false,
+			check_length:false
 		},
 		id_final:{
 			token_id:ID,
 			return_value:true,
 			reset:true,
-			check_keyword:true
+			check_keyword:true,
+			check_length:true,
+			max_length:16
 		},
 		blk_final:{
 			token_id:BLK,

@@ -97,8 +97,17 @@ public class JavaScanner {
 						Boolean returnValue = actions.getBoolean("return_value");
 						Boolean reset = actions.getBoolean("reset");
 						Boolean checkKeyWord = actions.getBoolean("check_keyword");
-						if(returnValue)
+						if(returnValue){
+							Boolean checkLen = actions.getBoolean("check_length");
+							if(checkLen){
+								Integer maxLen = actions.getInt("max_length");
+								if(cola.length()>maxLen){
+									cola = cola.substring(0, maxLen);
+									System.out.println("WARNING: element longer than max_length configured at pos=" + pos);
+								}
+							}
 							token.setValue(cola);
+						}	
 						if(reset){
 							cola = "";
 							pos--;
