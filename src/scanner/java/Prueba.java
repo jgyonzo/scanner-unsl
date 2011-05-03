@@ -4,15 +4,23 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.util.List;
 
+import org.codehaus.jettison.json.JSONArray;
+import org.codehaus.jettison.json.JSONObject;
+
 import scanner.token.Token;
 
 
 public class Prueba {
 	public static void main(String[] args) throws Exception{
-		String forscan = "aa b ";
+		String forscan = "aac aa b aaa;";
 		JavaScanner scanner = new JavaScanner();
 		List<Token> tokens = scanner.scan(forscan);
 		System.out.println(tokens);
+		
+//		String jsonArr = "[new,return,char]";
+//		JSONArray ja = new JSONArray(jsonArr);
+//		JSONObject jo = ja.toJSONObject(ja);
+//		System.out.println(jo);
 		
 //		String json = Prueba.readFileAsString("javaconf.json");
 //		JSONObject jsonOb = new JSONObject(json);

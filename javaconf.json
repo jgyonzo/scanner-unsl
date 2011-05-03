@@ -1,9 +1,7 @@
 {
 	delta:{
 		q0:{
-			a:id,
-			b:id,
-			c:id,
+			alpha:id,
 			" ":blk_final,
 			";":eos_final,
 			"$":eof_final
@@ -18,6 +16,13 @@
 			".":id_final
 		}
 	},
+	
+	alias:{
+		alpha:[a,b,c]
+	},
+	
+	key_words:[aaa,new,return,char,int,float,double,class,public,void,private],
+	
 	stateActions:{
 		id:{
 			push:true
@@ -25,22 +30,26 @@
 		id_final:{
 			token_id:ID,
 			return_value:true,
-			reset:true
+			reset:true,
+			check_keyword:true
 		},
 		blk_final:{
 			token_id:BLK,
 			return_value:false,
-			reset:false
+			reset:false,
+			check_keyword:false
 		},
 		eof_final:{
 			token_id:EOF,
 			return_value:false,
-			reset:false
+			reset:false,
+			check_keyword:false
 		},
 		eos_final:{
 			token_id:EOS,
 			return_value:false,
-			reset:false
+			reset:false,
+			check_keyword:false
 		}
 	}
 }

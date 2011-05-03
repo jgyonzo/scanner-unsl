@@ -2,7 +2,11 @@ package scanner.util;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
+import java.util.HashSet;
+import java.util.Set;
 
+import org.codehaus.jettison.json.JSONArray;
+import org.codehaus.jettison.json.JSONException;
 import org.codehaus.jettison.json.JSONObject;
 
 public class Util {
@@ -31,5 +35,23 @@ public class Util {
 			return (JSONObject)o;
 		}
 		throw new ClassCastException("Cannot convert this object to JSONObject");
+	}
+	
+	/**
+	 * @param jArr jsonarray with strings inside
+	 * @return hashset with the strings
+	 */
+	public static Set<String> asSet (JSONArray jArr){
+		if(jArr == null)
+			throw new IllegalArgumentException("jArr can't be null");
+		Set<String> set = new HashSet<String>();
+		for(int i = 0; i<jArr.length(); i++){
+			try {
+				set.add(jArr.getString(i));
+			} catch (JSONException e) {
+				//never
+			}
+		}
+		return set;
 	}
 }
