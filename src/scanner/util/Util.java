@@ -2,12 +2,16 @@ package scanner.util;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import org.codehaus.jettison.json.JSONArray;
 import org.codehaus.jettison.json.JSONException;
 import org.codehaus.jettison.json.JSONObject;
+
+import scanner.token.Token;
 
 public class Util {
 	
@@ -53,5 +57,37 @@ public class Util {
 			}
 		}
 		return set;
+	}
+	
+	public static boolean isEqual(List<scanner.token.Token> tokens, List<Token> tokens2) {
+		if(tokens == null || tokens2 == null){
+			throw new IllegalArgumentException();
+		}
+		
+		if(tokens.isEmpty() && tokens2.isEmpty()){
+			return true;
+		}
+		
+		if(tokens.size() != tokens2.size()){
+			return false;
+		}
+		
+		for(int i = 0; i< tokens.size(); i++){
+			if(!(tokens.get(i).equals(tokens2.get(i)))){
+				return false;
+			}
+		}
+		return true;
+	}
+	
+	public static List<Token> addAll(Token... tokens){
+		if(tokens == null){
+			throw new IllegalArgumentException();
+		}
+		List<Token> result = new ArrayList<Token>();
+		for(Token t : tokens){
+			result.add(t);
+		}
+		return result;
 	}
 }

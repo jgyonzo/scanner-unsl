@@ -2,30 +2,69 @@
 	delta:{
 		q0:{
 			alpha:id,
+			num:int,
 			" ":blk_final,
 			";":eos_final,
 			"$":eof_final
 		},
 		id:{
-			a:id,
-			b:id,
-			c:id,
+			alpha:id,
+			num:id,
 			" ":id_final,
 			";":id_final,
 			"$":id_final,
 			".":id_final
+		},
+		int:{
+			num:int,
+			".":real_temp,
+			alpha:int_final,
+			"$":int_final,
+			" ":int_final
+		},
+		real_temp:{
+			num:real
+		},
+		real:{
+			num:real,
+			alpha:real_final,
+			" ":real_final,
+			"$":real_final,
+			";":real_final
 		}
 	},
 	
 	alias:{
-		alpha:[a,b,c]
+		num:["0","1","2","3","4","5","6","7","8","9"],
+		alpha:[a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u,v,w,x,y,z]
 	},
 	
-	key_words:[aaa,new,return,char,int,float,double,class,public,void,private],
+	key_words:[new,return,char,int,float,double,class,public,void,private],
 	
 	stateActions:{
 		id:{
 			push:true
+		},
+		int:{
+			push:true
+		},
+		real:{
+			push:true
+		},
+		real_temp:{
+			push:true
+		},
+		int_final:{
+			token_id:INT,
+			return_value:true,
+			reset:true,
+			check_keyword:false
+		},
+		real_final:{
+			token_id:REAL,
+			return_value:true,
+			reset:true,
+			check_keyword:false
 		},
 		id_final:{
 			token_id:ID,
