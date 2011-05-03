@@ -1,7 +1,7 @@
 package scanner.java;
 
 import static scanner.util.Util.asSet;
-import static scanner.util.Util.readFileAsString;
+import static scanner.util.Util.*;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -88,14 +88,14 @@ public class JavaScanner {
 				currentState = nextState;
 				if(stateActions.has(currentState)){
 					JSONObject actions = stateActions.getJSONObject(currentState);
-					if(actions.has("push") && actions.getBoolean("push")){
-						//ejecuta las acciones de estado no final
-						cola+=currentChar;
-					} else { //ejecuta las acciones de estado final
+					
+					if(isFinal(currentState)){
+						//ejecuta las acciones de estado final
 						Token token = new Token();
 						token.setCode((String)actions.get("token_id"));
 						Boolean returnValue = actions.getBoolean("return_value");
 						Boolean reset = actions.getBoolean("reset");
+						Boolean goBack = actions.getBoolean("go_back");
 						Boolean checkKeyWord = actions.getBoolean("check_keyword");
 						if(returnValue){
 							Boolean checkLen = actions.getBoolean("check_length");
@@ -110,6 +110,8 @@ public class JavaScanner {
 						}	
 						if(reset){
 							cola = "";
+						}
+						if(goBack){
 							pos--;
 						}
 						if(checkKeyWord && keyWords.contains(token.getValue())){
@@ -117,6 +119,10 @@ public class JavaScanner {
 						}
 						currentState = "q0";
 						tokensFound.add(token);
+					} else { 
+						//ejecuta las acciones de estado no final
+						if(actions.has("push") && actions.getBoolean("push"))
+							cola+=currentChar;
 					}
 				}
 			} else {

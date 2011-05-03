@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.codehaus.jettison.json.JSONArray;
 import org.codehaus.jettison.json.JSONException;
@@ -89,5 +91,11 @@ public class Util {
 			result.add(t);
 		}
 		return result;
+	}
+	
+	public static Boolean isFinal(String state){
+		Pattern p = Pattern.compile(".*_final");
+		Matcher m = p.matcher(state);
+		return m.matches();
 	}
 }

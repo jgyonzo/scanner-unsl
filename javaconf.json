@@ -5,7 +5,8 @@
 			num:int,
 			" ":blk_final,
 			";":eos_final,
-			"$":eof_final
+			"$":eof_final,
+			"\"":string_aux
 		},
 		id:{
 			alpha:id,
@@ -31,15 +32,31 @@
 			" ":real_final,
 			"$":real_final,
 			";":real_final
+		},
+		string_aux:{
+			num:string,
+			alpha:string,
+			" ":string,
+			"$":string,
+			";":string,
+			"\"":string_final
+		},
+		string:{
+			num:string,
+			alpha:string,
+			" ":string,
+			"$":string,
+			";":string,
+			"\"":string_final
 		}
 	},
 	
 	alias:{
 		num:["0","1","2","3","4","5","6","7","8","9"],
-		alpha:[a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u,v,w,x,y,z]
+		alpha:[a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u,v,w,x,y,z,A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z]
 	},
 	
-	key_words:[new,return,char,int,float,double,class,public,void,private],
+	key_words:[new,return,char,int,float,double,class,public,void,private,String],
 	
 	stateActions:{
 		id:{
@@ -54,10 +71,17 @@
 		real_temp:{
 			push:true
 		},
+		string:{
+			push:true
+		},
+		string_aux:{
+			push:false
+		},
 		int_final:{
 			token_id:INT,
 			return_value:true,
 			reset:true,
+			go_back:true,
 			check_keyword:false,
 			check_length:false
 		},
@@ -65,6 +89,7 @@
 			token_id:REAL,
 			return_value:true,
 			reset:true,
+			go_back:true,
 			check_keyword:false,
 			check_length:false
 		},
@@ -72,26 +97,38 @@
 			token_id:ID,
 			return_value:true,
 			reset:true,
+			go_back:true,
 			check_keyword:true,
 			check_length:true,
 			max_length:16
+		},
+		string_final:{
+			token_id:STRING,
+			return_value:true,
+			reset:true,
+			go_back:false,
+			check_keyword:false,
+			check_length:false
 		},
 		blk_final:{
 			token_id:BLK,
 			return_value:false,
 			reset:false,
+			go_back:false,
 			check_keyword:false
 		},
 		eof_final:{
 			token_id:EOF,
 			return_value:false,
 			reset:false,
+			go_back:false,
 			check_keyword:false
 		},
 		eos_final:{
 			token_id:EOS,
 			return_value:false,
 			reset:false,
+			go_back:false,
 			check_keyword:false
 		}
 	}

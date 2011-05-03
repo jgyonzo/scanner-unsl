@@ -105,4 +105,21 @@ public class JavaScannerTest {
 			e.printStackTrace();
 		}
 	}
+	
+	@Test
+	public void testString(){
+		String input = "String \"esto es un string\"$";
+		Token key = new Token("KEY","String");
+		Token blk = new Token("BLK",null);
+		Token string = new Token("STRING","esto es un string");
+		Token eof = new Token("EOF",null);
+		List<Token> expected = addAll(key, blk, string, eof);
+		
+		try {
+			List<Token> result = scanner.scan(input);
+			assertTrue("Expected=" + expected + " Result=" + result, isEqual(expected, result));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 }
