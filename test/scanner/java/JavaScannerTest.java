@@ -192,4 +192,168 @@ public class JavaScannerTest {
 			e.printStackTrace();
 		}
 	}
+	
+	@Test
+	public void testSuma()  throws IOException{
+		String input = "aa + b3$";
+		Token id = new Token("ID","aa");
+		Token blk = new Token("BLK",null);
+		Token suma = new Token("SUMA",null);
+		Token id2 = new Token("ID","b3");
+		Token eof = new Token("EOF",null);
+		List<Token> expected = addAll(id, blk, suma, blk, id2, eof);
+		
+		try {
+			List<Token> result = scanner.scan(input);
+			assertTrue("Expected=" + expected + " Result=" + result, isEqual(expected, result));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	@Test
+	public void testSumaSuma()  throws IOException{
+		String input = "aa ++ b3$";
+		Token id = new Token("ID","aa");
+		Token blk = new Token("BLK",null);
+		Token suma = new Token("AUTOINC",null);
+		Token id2 = new Token("ID","b3");
+		Token eof = new Token("EOF",null);
+		List<Token> expected = addAll(id, blk, suma, blk, id2, eof);
+		
+		try {
+			List<Token> result = scanner.scan(input);
+			assertTrue("Expected=" + expected + " Result=" + result, isEqual(expected, result));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	@Test
+	public void testSumaIgual()  throws IOException{
+		String input = "aa += b3$";
+		Token id = new Token("ID","aa");
+		Token blk = new Token("BLK",null);
+		Token suma = new Token("SUMAASIGN",null);
+		Token id2 = new Token("ID","b3");
+		Token eof = new Token("EOF",null);
+		List<Token> expected = addAll(id, blk, suma, blk, id2, eof);
+		
+		try {
+			List<Token> result = scanner.scan(input);
+			assertTrue("Expected=" + expected + " Result=" + result, isEqual(expected, result));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	@Test
+	public void testResta()  throws IOException{
+		String input = "aa - b3$";
+		Token id = new Token("ID","aa");
+		Token blk = new Token("BLK",null);
+		Token resta = new Token("RESTA",null);
+		Token id2 = new Token("ID","b3");
+		Token eof = new Token("EOF",null);
+		List<Token> expected = addAll(id, blk, resta, blk, id2, eof);
+		
+		try {
+			List<Token> result = scanner.scan(input);
+			assertTrue("Expected=" + expected + " Result=" + result, isEqual(expected, result));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	@Test
+	public void testMul()  throws IOException{
+		String input = "aa * b3$";
+		Token id = new Token("ID","aa");
+		Token blk = new Token("BLK",null);
+		Token mul = new Token("MUL",null);
+		Token id2 = new Token("ID","b3");
+		Token eof = new Token("EOF",null);
+		List<Token> expected = addAll(id, blk, mul, blk, id2, eof);
+		
+		try {
+			List<Token> result = scanner.scan(input);
+			assertTrue("Expected=" + expected + " Result=" + result, isEqual(expected, result));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	@Test
+	public void testLess()  throws IOException{
+		String input = "aa < b3$";
+		Token id = new Token("ID","aa");
+		Token blk = new Token("BLK",null);
+		Token less = new Token("LESSER",null);
+		Token id2 = new Token("ID","b3");
+		Token eof = new Token("EOF",null);
+		List<Token> expected = addAll(id, blk, less, blk, id2, eof);
+		
+		try {
+			List<Token> result = scanner.scan(input);
+			assertTrue("Expected=" + expected + " Result=" + result, isEqual(expected, result));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	@Test
+	public void testAssign()  throws IOException{
+		String input = "aa = b3$";
+		Token id = new Token("ID","aa");
+		Token blk = new Token("BLK",null);
+		Token assign = new Token("ASSIGN",null);
+		Token id2 = new Token("ID","b3");
+		Token eof = new Token("EOF",null);
+		List<Token> expected = addAll(id, blk, assign, blk, id2, eof);
+		
+		try {
+			List<Token> result = scanner.scan(input);
+			assertTrue("Expected=" + expected + " Result=" + result, isEqual(expected, result));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	@Test
+	public void testOR()  throws IOException{
+		String input = "aa || b3$";
+		Token id = new Token("ID","aa");
+		Token blk = new Token("BLK",null);
+		Token or = new Token("OR",null);
+		Token id2 = new Token("ID","b3");
+		Token eof = new Token("EOF",null);
+		List<Token> expected = addAll(id, blk, or, blk, id2, eof);
+		
+		try {
+			List<Token> result = scanner.scan(input);
+			assertTrue("Expected=" + expected + " Result=" + result, isEqual(expected, result));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	@Test
+	public void testBrackets()  throws IOException{
+		String input = "aa = (b3)$";
+		Token id = new Token("ID","aa");
+		Token blk = new Token("BLK",null);
+		Token assign = new Token("ASSIGN",null);
+		Token braop = new Token("BRACKETOPEN",null);
+		Token bracl = new Token("BRACKETCLOSE",null);
+		Token id2 = new Token("ID","b3");
+		Token eof = new Token("EOF",null);
+		List<Token> expected = addAll(id, blk, assign, blk, braop, id2, bracl, eof);
+		
+		try {
+			List<Token> result = scanner.scan(input);
+			assertTrue("Expected=" + expected + " Result=" + result, isEqual(expected, result));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 }
