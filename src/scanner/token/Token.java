@@ -3,7 +3,8 @@ package scanner.token;
 
 public class Token {
 	private String code;
-	private String value;
+	private Integer numCode;
+	private String value = "";
 	
 	public Token(){
 		super();
@@ -16,7 +17,11 @@ public class Token {
 	
 	@Override
 	public String toString(){
-		return String.format("token:[code: %s,value: %s]",code,value);
+		return String.format("token:[code: %s,value: %s, numCode: %d]",code,value,numCode);
+	}
+	
+	public String toStringFile(){
+		return String.format("(%d,%s)",numCode,value); 
 	}
 	
 	public String getCode() {
@@ -30,6 +35,14 @@ public class Token {
 	}
 	public void setValue(String value) {
 		this.value = value;
+	}
+	
+	public Integer getNumCode() {
+		return numCode;
+	}
+
+	public void setNumCode(Integer numCode) {
+		this.numCode = numCode;
 	}
 	
 	@Override

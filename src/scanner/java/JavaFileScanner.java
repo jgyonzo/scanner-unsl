@@ -157,10 +157,12 @@ public class JavaFileScanner {
 			
 			//read next char and detect EOF
 			int charint = getNextChar();
+			String currentChar;
 			if(charint == -1){
-				return null;
+				currentChar = "~"; //character to simulate EOF
+			}else{
+				currentChar = Character.valueOf((char)charint).toString();
 			}
-			String currentChar = Character.valueOf((char)charint).toString();
 			
 			//processing the char
 			if (delta.getJSONObject(currentState).has(currentChar)) {
@@ -170,14 +172,24 @@ public class JavaFileScanner {
 					JSONObject actions = stateActions.getJSONObject(currentState);
 					if (isFinal(currentState)) {
 						// ejecuta las acciones de estado final
+						Boolean returnValue = actions.has("return_value") && actions.getBoolean("return_value");
+						Boolean reset = actions.has("reset") && actions.getBoolean("reset");
+						Boolean goBack = actions.has("go_back") && actions.getBoolean("go_back");
+						Boolean checkKeyWord = actions.has("check_keyword") && actions.getBoolean("check_keyword");
+						Boolean ignore = actions.has("ignore") && actions.getBoolean("ignore");
+						Boolean returnNull = actions.has("null_token") && actions.getBoolean("null_token");
+						Boolean checkLen = actions.has("check_length") && actions.getBoolean("check_length");
+						
+						if(returnNull){
+							return null; //EOF reached
+						}
+						if(ignore){ //shouldn't return this token, ignore and epislon to q0
+							doEpsilon();
+							continue;
+						}
 						token = new Token();
 						token.setCode((String) actions.get("token_id"));
-						Boolean returnValue = actions.getBoolean("return_value");
-						Boolean reset = actions.getBoolean("reset");
-						Boolean goBack = actions.getBoolean("go_back");
-						Boolean checkKeyWord = actions.getBoolean("check_keyword");
 						if (returnValue) {
-							Boolean checkLen = actions.getBoolean("check_length");
 							if (checkLen) {
 								Integer maxLen = actions.getInt("max_length");
 								if (cola.length() > maxLen) {
@@ -194,7 +206,8 @@ public class JavaFileScanner {
 							goBack();
 						}
 						if (checkKeyWord && keyWords.contains(token.getValue())) {
-							token.setCode("KEY");
+							token.setCode(token.getValue());
+							token.setValue("");
 						}
 						doEpsilon();
 					} else {

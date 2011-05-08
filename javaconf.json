@@ -5,7 +5,6 @@
 			num:int,
 			" ":blk_final,
 			";":eos_final,
-			"$":eof_final,
 			"\"":string_aux,
 			"\n":eol_final,
 			"\t":tab_final,
@@ -23,17 +22,13 @@
 			"[":claop,
 			"]":clacl,
 			"|":or,
-			"&":and
+			"&":and,
+			"~":eof_final
 		},
 		id:{
 			alpha:id,
 			num:id,
-			" ":id_final,
-			";":id_final,
-			"$":id_final,
-			".":id_final,
-			"\n":id_final,
-			"\t":id_final,
+			terminators:id_final,
 			op:id_final,
 			association:id_final
 		},
@@ -41,7 +36,6 @@
 			num:int,
 			".":real_temp,
 			alpha:int_final,
-			"$":int_final,
 			" ":int_final,
 			"\n":int_final,
 			"\t":int_final,
@@ -55,7 +49,6 @@
 			num:real,
 			alpha:real_final,
 			" ":real_final,
-			"$":real_final,
 			";":real_final,
 			"\n":real_final,
 			"\t":real_final,
@@ -66,7 +59,6 @@
 			num:string,
 			alpha:string,
 			" ":string,
-			"$":string,
 			";":string,
 			"\t":string,
 			"\"":string_final,
@@ -77,7 +69,6 @@
 			num:string,
 			alpha:string,
 			" ":string,
-			"$":string,
 			";":string,
 			"\t":string,
 			"\"":string_final,
@@ -89,7 +80,6 @@
 			alpha:suma_final,
 			num:suma_final,
 			" ":suma_final,
-			"$":suma_final,
 			";":suma_final,
 			"\n":suma_final,
 			"\t":suma_final,
@@ -102,7 +92,6 @@
 			num:sumasuma_final,
 			" ":sumasuma_final,
 			";":sumasuma_final,
-			"$":sumasuma_final,
 			"\t":sumasuma_final,
 			"\n":sumasuma_final,
 			op:sumasuma_final,
@@ -113,7 +102,6 @@
 			num:sumaigual_final,
 			" ":sumaigual_final,
 			";":sumaigual_final,
-			"$":sumaigual_final,
 			"\t":sumaigual_final,
 			"\n":sumaigual_final,
 			op:sumaigual_final,
@@ -123,7 +111,6 @@
 			alpha:resta_final,
 			num:resta_final,
 			" ":resta_final,
-			"$":resta_final,
 			";":resta_final,
 			"\n":resta_final,
 			"\t":resta_final,
@@ -134,7 +121,6 @@
 			alpha:mul_final,
 			num:mul_final,
 			" ":mul_final,
-			"$":mul_final,
 			";":mul_final,
 			"\n":mul_final,
 			"\t":mul_final,
@@ -145,7 +131,6 @@
 			alpha:div_final,
 			num:div_final,
 			" ":div_final,
-			"$":div_final,
 			";":div_final,
 			"\n":div_final,
 			"\t":div_final,
@@ -156,7 +141,6 @@
 			alpha:less_final,
 			num:less_final,
 			" ":less_final,
-			"$":less_final,
 			";":less_final,
 			"\n":less_final,
 			"\t":less_final,
@@ -167,7 +151,6 @@
 			alpha:big_final,
 			num:big_final,
 			" ":big_final,
-			"$":big_final,
 			";":big_final,
 			"\n":big_final,
 			"\t":big_final,
@@ -178,7 +161,6 @@
 			alpha:assign_final,
 			num:assign_final,
 			" ":assign_final,
-			"$":assign_final,
 			";":assign_final,
 			"\n":assign_final,
 			"\t":assign_final,
@@ -189,7 +171,6 @@
 			alpha:equal_final,
 			num:equal_final,
 			" ":equal_final,
-			"$":equal_final,
 			";":equal_final,
 			"\n":equal_final,
 			"\t":equal_final,
@@ -200,7 +181,6 @@
 			alpha:claop_final,
 			num:claop_final,
 			" ":claop_final,
-			"$":claop_final,
 			";":claop_final,
 			"\n":claop_final,
 			"\t":claop_final,
@@ -211,7 +191,6 @@
 			alpha:clacl_final,
 			num:clacl_final,
 			" ":clacl_final,
-			"$":clacl_final,
 			";":clacl_final,
 			"\n":clacl_final,
 			"\t":clacl_final,
@@ -222,7 +201,6 @@
 			alpha:keyop_final,
 			num:keyop_final,
 			" ":keyop_final,
-			"$":keyop_final,
 			";":keyop_final,
 			"\n":keyop_final,
 			"\t":keyop_final,
@@ -233,7 +211,6 @@
 			alpha:keycl_final,
 			num:keycl_final,
 			" ":keycl_final,
-			"$":keycl_final,
 			";":keycl_final,
 			"\n":keycl_final,
 			"\t":keycl_final,
@@ -244,7 +221,6 @@
 			alpha:braop_final,
 			num:braop_final,
 			" ":braop_final,
-			"$":braop_final,
 			";":braop_final,
 			"\n":braop_final,
 			"\t":braop_final,
@@ -255,7 +231,6 @@
 			alpha:bracl_final,
 			num:bracl_final,
 			" ":bracl_final,
-			"$":bracl_final,
 			";":bracl_final,
 			"\n":bracl_final,
 			"\t":bracl_final,
@@ -270,7 +245,6 @@
 			alpha:or_final,
 			num:or_final,
 			" ":or_final,
-			"$":or_final,
 			";":or_final,
 			"\n":or_final,
 			"\t":or_final,
@@ -284,7 +258,6 @@
 			alpha:and_final,
 			num:and_final,
 			" ":and_final,
-			"$":and_final,
 			";":and_final,
 			"\n":and_final,
 			"\t":and_final,
@@ -297,10 +270,12 @@
 		num:["0","1","2","3","4","5","6","7","8","9"],
 		alpha:[a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u,v,w,x,y,z,A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z],
 		op:["+","-","*","/","=","<",">","|","&"],
-		association:["(",")","[","]","{","}"]
+		association:["(",")","[","]","{","}"],
+		special:["!","?","$","^","'","#","%",":",".","_","-",","],
+		terminators:["\n","\t"," ",";","~"]
 	},
 	
-	key_words:[new,return,char,int,float,double,class,public,void,private,String],
+	key_words:[new,return,char,int,float,double,class,public,void,private,String,if,else,while],
 	
 	stateActions:{
 		id:{
@@ -385,17 +360,13 @@
 			token_id:INT,
 			return_value:true,
 			reset:true,
-			go_back:true,
-			check_keyword:false,
-			check_length:false
+			go_back:true
 		},
 		real_final:{
 			token_id:REAL,
 			return_value:true,
 			reset:true,
-			go_back:true,
-			check_keyword:false,
-			check_length:false
+			go_back:true
 		},
 		id_final:{
 			token_id:ID,
@@ -409,180 +380,128 @@
 		string_final:{
 			token_id:STRING,
 			return_value:true,
-			reset:true,
-			go_back:false,
-			check_keyword:false,
-			check_length:false
+			reset:true
 		},
 		string_inc_final:{
 			token_id:STR_INC,
 			return_value:true,
 			reset:true,
-			go_back:true,
-			check_keyword:false,
-			check_length:false
+			go_back:true
 		},
 		blk_final:{
 			token_id:BLK,
-			return_value:false,
-			reset:false,
-			go_back:false,
-			check_keyword:false
-		},
-		eof_final:{
-			token_id:EOF,
-			return_value:false,
-			reset:false,
-			go_back:false,
-			check_keyword:false
+			ignore:true
 		},
 		eos_final:{
-			token_id:EOS,
-			return_value:false,
-			reset:false,
-			go_back:false,
-			check_keyword:false
+			token_id:EOS
 		},
 		eol_final:{
 			token_id:EOL,
-			return_value:false,
-			reset:false,
-			go_back:false,
-			check_keyword:false
+			ignore:true
 		},
 		tab_final:{
 			token_id:TAB,
-			return_value:false,
-			reset:false,
-			go_back:false,
-			check_keyword:false
+			ignore:true
 		},
 		suma_final:{
 			token_id:SUMA,
-			return_value:false,
 			reset:true,
-			go_back:true,
-			check_keyword:false
+			go_back:true
 		},
 		sumasuma_final:{
 			token_id:AUTOINC,
-			return_value:false,
 			reset:true,
-			go_back:true,
-			check_keyword:false
+			go_back:true
 		},
 		sumaigual_final:{
-			token_id:SUMAASIGN,
-			return_value:false,
+			token_id:SUMASSIGN,
 			reset:true,
-			go_back:true,
-			check_keyword:false
+			go_back:true
 		},
 		resta_final:{
 			token_id:RESTA,
-			return_value:false,
 			reset:true,
-			go_back:true,
-			check_keyword:false
+			go_back:true
 		},
 		mul_final:{
 			token_id:MUL,
-			return_value:false,
 			reset:true,
-			go_back:true,
-			check_keyword:false
+			go_back:true
 		},
 		div_final:{
 			token_id:DIV,
-			return_value:false,
 			reset:true,
-			go_back:true,
-			check_keyword:false
+			go_back:true
 		},
 		less_final:{
 			token_id:LESSER,
-			return_value:false,
 			reset:true,
-			go_back:true,
-			check_keyword:false
+			go_back:true
 		},
 		big_final:{
 			token_id:BIGGER,
-			return_value:false,
 			reset:true,
-			go_back:true,
-			check_keyword:false
+			go_back:true
 		},
 		assign_final:{
 			token_id:ASSIGN,
-			return_value:false,
 			reset:true,
-			go_back:true,
-			check_keyword:false
+			go_back:true
 		},
 		equal_final:{
 			token_id:EQUAL,
-			return_value:false,
 			reset:true,
-			go_back:true,
-			check_keyword:false
+			go_back:true
 		},
 		braop_final:{
 			token_id:BRACKETOPEN,
-			return_value:false,
 			reset:true,
-			go_back:true,
-			check_keyword:false
+			go_back:true
 		},
 		bracl_final:{
 			token_id:BRACKETCLOSE,
-			return_value:false,
 			reset:true,
-			go_back:true,
-			check_keyword:false
+			go_back:true
 		},
 		claop_final:{
 			token_id:CLAPSOPEN,
-			return_value:false,
 			reset:true,
-			go_back:true,
-			check_keyword:false
+			go_back:true
 		},
 		clacl_final:{
 			token_id:CLAPSCLOSE,
-			return_value:false,
 			reset:true,
-			go_back:true,
-			check_keyword:false
+			go_back:true
 		},
 		keyop_final:{
 			token_id:KEYOPEN,
-			return_value:false,
 			reset:true,
-			go_back:true,
-			check_keyword:false
+			go_back:true
 		},
 		keycl_final:{
 			token_id:KEYCLOSE,
-			return_value:false,
 			reset:true,
-			go_back:true,
-			check_keyword:false
+			go_back:true
 		},
 		or_final:{
 			token_id:OR,
-			return_value:false,
 			reset:true,
-			go_back:true,
-			check_keyword:false
+			go_back:true
 		},
 		and_final:{
 			token_id:AND,
-			return_value:false,
 			reset:true,
-			go_back:true,
-			check_keyword:false
+			go_back:true
+		},
+		
+		eof_final:{
+		    null_token:true
 		}
+		
+	},
+	
+	tokenCodes:{
+		"INT":1
 		
 	}
 }
