@@ -7,6 +7,7 @@ import static scanner.util.Util.readFileAsString;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.Reader;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -27,16 +28,42 @@ public class JavaFileScanner {
 	private BufferedReader sourceReader;
 	private int pos;
 	
-	@SuppressWarnings("unchecked")
+	/**
+	 * Opens a reader with the given filename
+	 * @param sourceFile complete filename of the source to be scanned
+	 */
 	public JavaFileScanner(String sourceFile) throws Exception{
-		
 		try{
 			sourceReader = new BufferedReader(new FileReader(sourceFile));
 		} catch(IOException e) {
 			String msj = "Error opening source file named: " + sourceFile;
 			throw new Exception(msj,e);
 		}
-		
+		try{
+			init();
+		}catch(Exception e){
+			String msj = "Error during initializacion of scanner - init()";
+			throw new Exception(msj,e);
+		}
+	}
+	
+	/**
+	 * Use this if you wanna read from other source.
+	 * If your source is a file, you may use the other overload
+	 * @param reader reader pointing to the input to be scanned
+	 */
+	public JavaFileScanner(Reader reader) throws Exception{
+		sourceReader = new BufferedReader(reader);
+		try{
+			init();
+		}catch(Exception e){
+			String msj = "Error during initializacion of scanner - init()";
+			throw new Exception(msj,e);
+		}
+	}
+	
+	@SuppressWarnings("unchecked")
+	private void init() throws Exception{
 		pos = 0;
 		cola = "";
 		currentState = "q0";
@@ -87,12 +114,12 @@ public class JavaFileScanner {
 	
 	/**
 	 * Mark current pos in the reader and then reads a char from it
-	 * @return next char in the reader in int form, -1 if EOF
+	 * @return next char in the reader as int, -1 if EOF
 	 * @throws IOException
 	 */
 	private int getNextChar() throws IOException{
 		pos++;
-		sourceReader.mark(100);
+		sourceReader.mark(20);
 		return sourceReader.read();
 	}
 	
@@ -155,7 +182,7 @@ public class JavaFileScanner {
 								Integer maxLen = actions.getInt("max_length");
 								if (cola.length() > maxLen) {
 									cola = cola.substring(0, maxLen);
-									System.out.println("WARNING: element longer than max_length configured at pos="+ pos);
+									System.out.println("WARNING: element longer than max_length at pos="+ pos);
 								}
 							}
 							token.setValue(cola);
@@ -176,6 +203,8 @@ public class JavaFileScanner {
 							cola += currentChar;
 					}
 				}
+			} else {
+				System.out.println("ERROR - illegal transition at pos=" + pos);
 			}
 		}
 		return token;

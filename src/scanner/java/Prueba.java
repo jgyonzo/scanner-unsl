@@ -3,16 +3,18 @@ package scanner.java;
 import java.io.BufferedReader;
 import java.io.FileReader;
 
+import scanner.token.Token;
+
 
 public class Prueba {
 	public static void main(String[] args) throws Exception{
 		
-		BufferedReader reader = new BufferedReader(new FileReader("prueba.txt"));
-		char ch;
-		
+		JavaFileScanner scanner = new JavaFileScanner("prueba.txt");
+		Token tok = null;
 		do{
-			ch=(char) reader.read();
-		} while (ch != -1);
+			tok = scanner.next();
+			System.out.println(tok);
+		}while(tok != null);
 		
 //		String forscan = readFileAsString("source.java");
 //		JavaScanner scanner = new JavaScanner();
