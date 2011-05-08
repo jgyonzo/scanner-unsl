@@ -1,23 +1,23 @@
 package scanner.java;
 
-import static scanner.util.Util.readFileAsString;
-
 import java.io.BufferedReader;
 import java.io.FileReader;
-import java.util.List;
-
-import org.codehaus.jettison.json.JSONArray;
-import org.codehaus.jettison.json.JSONObject;
-
-import scanner.token.Token;
 
 
 public class Prueba {
 	public static void main(String[] args) throws Exception{
-		String forscan = readFileAsString("source.java");
-		JavaScanner scanner = new JavaScanner();
-		List<Token> tokens = scanner.scan(forscan);
-		System.out.println(tokens);
+		
+		BufferedReader reader = new BufferedReader(new FileReader("prueba.txt"));
+		char ch;
+		
+		do{
+			ch=(char) reader.read();
+		} while (ch != -1);
+		
+//		String forscan = readFileAsString("source.java");
+//		JavaScanner scanner = new JavaScanner();
+//		List<Token> tokens = scanner.scan(forscan);
+//		System.out.println(tokens);
 		
 //		String jsonArr = "[new,return,char]";
 //		JSONArray ja = new JSONArray(jsonArr);
