@@ -8,7 +8,7 @@
 			" ":blk_final,
 			"\n":eol_final,
 			"\t":tab_final,
-			"\"":textocom,
+			"\"":textocom_aux,
 			"<":claop_final,
 			">":clacl_final,
 			"/":barra_final,
@@ -21,18 +21,19 @@
 			"=":texto_final,
 			terminators:texto_final
 		},
+		textocom_aux:{
+			alpha:textocom,
+			num:textocom,
+			misc:textocom,
+			"\"":textocom_final,
+			terminators:textocom
+		},
 		textocom:{
 			alpha:textocom,
 			num:textocom,
 			misc:textocom,
-			"\"":textocom_aux,
+			"\"":textocom_final,
 			terminators:textocom
-		},
-		textocom_aux:{
-			alpha:textocom_final,
-			num:textocom_final,
-			misc:textocom_final,
-			terminators:textocom_final
 		},
 		
 	},
@@ -54,9 +55,6 @@
 		textocom:{
 			push:true
 		},
-		textocom_aux:{
-			push:true
-		},
 		texto_final:{
 			token_id:TEXT,
 			return_value:true,
@@ -67,8 +65,7 @@
 		textocom_final:{
 			token_id:QUOTEDTEXT,
 			return_value:true,
-			reset:true,
-			go_back:true
+			reset:true
 		},
 		blk_final:{
 			ignore:true
