@@ -15,12 +15,12 @@ public class Token {
 		this.value = value;
 	}
 	
-	@Override
-	public String toString(){
+	public String toStringComplete(){
 		return String.format("token:[code: %s,value: %s, numCode: %d]",code,value,numCode);
 	}
 	
-	public String toStringFile(){
+	@Override
+	public String toString(){
 		return String.format("(%d,%s)",numCode,value); 
 	}
 	

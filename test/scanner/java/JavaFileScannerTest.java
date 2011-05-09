@@ -9,11 +9,12 @@ import java.util.List;
 
 import org.junit.Test;
 
+import scanner.Scanner;
 import scanner.token.Token;
 
 public class JavaFileScannerTest {
 
-	JavaFileScanner scanner = null;
+	Scanner scanner = null;
 	Token id = new Token("ID", "");
 	Token classK = new Token("class","");
 	Token eos = new Token("EOS","");
@@ -26,6 +27,7 @@ public class JavaFileScannerTest {
 	Token addAs = new Token("SUMASSIGN","");
 	Token equal = new Token("EQUAL","");
 	Token assign = new Token("ASSIGN","");
+	Token or = new Token("OR","");
 
 	@Test
 	public void testId() {
@@ -118,9 +120,24 @@ public class JavaFileScannerTest {
 	@Test
 	public void testOps(){
 		try {
-			String input = "+ - ++ += == = +++";
+			String input = "+-+++====++ + ++|= ||";
 			reInitScan(input);
-			List<Token> expected = addAll(add,sub,autoInc,addAs,equal,assign,autoInc,add);
+			List<Token> expected = addAll(add,sub,autoInc,addAs,equal,assign,autoInc,add,autoInc,assign,or);
+			List<Token> result = scanner.getAll();
+			assertTrue("Expected=" + expected + " Result=" + result,
+					isEqual(expected, result));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	@Test
+	public void testComment() {
+		try {
+			String input = "myvar /*lalala mati trolo·";
+			reInitScan(input);
+			id.setValue("myvar");
+			List<Token> expected = addAll(id);
 			List<Token> result = scanner.getAll();
 			assertTrue("Expected=" + expected + " Result=" + result,
 					isEqual(expected, result));
@@ -134,6 +151,6 @@ public class JavaFileScannerTest {
 			scanner.closeFile();
 		}
 		StringReader reader = new StringReader(input);
-		scanner = new JavaFileScanner(reader);
+		scanner = new Scanner(reader,"javaconf.json");
 	}
 }

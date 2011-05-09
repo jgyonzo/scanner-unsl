@@ -9,21 +9,22 @@
 			"\n":eol_final,
 			"\t":tab_final,
 			"+":suma,
-			"-":resta,
-			"*":mul,
+			"-":resta_final,
+			"*":mul_final,
 			"/":div,
-			"<":less,
-			">":big,
+			"<":less_final,
+			">":big_final,
 			"=":assign,
-			"(":braop,
-			")":bracl,
-			"{":keyop,
-			"}":keycl,
-			"[":claop,
-			"]":clacl,
+			"(":braop_final,
+			")":bracl_final,
+			"{":keyop_final,
+			"}":keycl_final,
+			"[":claop_final,
+			"]":clacl_final,
 			"|":or,
 			"&":and,
-			"~":eof_final
+			"·":eof_final,
+			"'":char
 		},
 		id:{
 			alpha:id,
@@ -36,9 +37,7 @@
 			num:int,
 			".":real_temp,
 			alpha:int_final,
-			" ":int_final,
-			"\n":int_final,
-			"\t":int_final,
+			terminators:int_final,
 			op:int_final,
 			association:int_final
 		},
@@ -48,19 +47,14 @@
 		real:{
 			num:real,
 			alpha:real_final,
-			" ":real_final,
-			";":real_final,
-			"\n":real_final,
-			"\t":real_final,
+			terminators:real_final,
 			op:real_final,
 			association:real_final
 		},
 		string_aux:{
 			num:string,
 			alpha:string,
-			" ":string,
-			";":string,
-			"\t":string,
+			terminators:string,
 			"\"":string_final,
 			op:string,
 			association:string
@@ -79,200 +73,87 @@
 		suma:{
 			alpha:suma_final,
 			num:suma_final,
-			" ":suma_final,
-			";":suma_final,
-			"\n":suma_final,
-			"\t":suma_final,
-			"+":sumasuma_aux,
-			"=":sumaigual_aux,
-			"(":suma_final
-		},
-		sumasuma_aux:{
-			alpha:sumasuma_final,
-			num:sumasuma_final,
-			" ":sumasuma_final,
-			";":sumasuma_final,
-			"\t":sumasuma_final,
-			"\n":sumasuma_final,
-			op:sumasuma_final,
-			association:sumasuma_final
-		},
-		sumaigual_aux:{
-			alpha:sumaigual_final,
-			num:sumaigual_final,
-			" ":sumaigual_final,
-			";":sumaigual_final,
-			"\t":sumaigual_final,
-			"\n":sumaigual_final,
-			op:sumaigual_final,
-			association:sumaigual_final
-		},
-		resta:{
-			alpha:resta_final,
-			num:resta_final,
-			" ":resta_final,
-			";":resta_final,
-			"\n":resta_final,
-			"\t":resta_final,
-			op:resta_final,
-			association:resta_final
-		},
-		mul:{
-			alpha:mul_final,
-			num:mul_final,
-			" ":mul_final,
-			";":mul_final,
-			"\n":mul_final,
-			"\t":mul_final,
-			op:mul_final,
-			association:mul_final
+			terminators:suma_final,
+			association:suma_final,
+			special:suma_final,
+			opsinaddequal:suma_final,
+			"+":sumasuma_final,
+			"=":sumaigual_final
 		},
 		div:{
 			alpha:div_final,
 			num:div_final,
-			" ":div_final,
-			";":div_final,
-			"\n":div_final,
-			"\t":div_final,
-			op:div_final,
-			association:mul_final
+			terminators:div_final,
+			opsinmul:div_final,
+			association:div_final,
+			"*":comment
 		},
-		less:{
-			alpha:less_final,
-			num:less_final,
-			" ":less_final,
-			";":less_final,
-			"\n":less_final,
-			"\t":less_final,
-			op:less_final,
-			association:less_final
+		comment:{
+		  alpha:comment,
+		  num:comment,
+		  " ":comment,
+		  ";":comment,
+		  "\t":comment,
+		  "\n":comment,
+		  "·":eof_final,
+		  association:comment,
+		  opsinmul:comment,
+		  "*":comment_aux
 		},
-		big:{
-			alpha:big_final,
-			num:big_final,
-			" ":big_final,
-			";":big_final,
-			"\n":big_final,
-			"\t":big_final,
-			op:big_final,
-			association:big_final
+		comment_aux:{
+		  "/":comment_final,
+		  alpha:comment,
+		  num:comment,
+		  " ":comment,
+		  ";":comment,
+		  "\t":comment,
+		  "\n":comment,
+		  "·":eof_final,
+		  association:comment,
+		  opsindiv:comment
 		},
 		assign:{
 			alpha:assign_final,
 			num:assign_final,
-			" ":assign_final,
-			";":assign_final,
-			"\n":assign_final,
-			"\t":assign_final,
-			"=":assign_aux,
-			"(":assign_final
-		},
-		assign_aux:{
-			alpha:equal_final,
-			num:equal_final,
-			" ":equal_final,
-			";":equal_final,
-			"\n":equal_final,
-			"\t":equal_final,
-			op:equal_final,
-			association:equal_final
-		},
-		claop:{
-			alpha:claop_final,
-			num:claop_final,
-			" ":claop_final,
-			";":claop_final,
-			"\n":claop_final,
-			"\t":claop_final,
-			op:claop_final,
-			association:claop_final
-		},
-		clacl:{
-			alpha:clacl_final,
-			num:clacl_final,
-			" ":clacl_final,
-			";":clacl_final,
-			"\n":clacl_final,
-			"\t":clacl_final,
-			op:clacl_final,
-			association:clacl_final
-		},
-		keyop:{
-			alpha:keyop_final,
-			num:keyop_final,
-			" ":keyop_final,
-			";":keyop_final,
-			"\n":keyop_final,
-			"\t":keyop_final,
-			op:keyop_final,
-			association:keyop_final
-		},
-		keycl:{
-			alpha:keycl_final,
-			num:keycl_final,
-			" ":keycl_final,
-			";":keycl_final,
-			"\n":keycl_final,
-			"\t":keycl_final,
-			op:keycl_final,
-			association:keycl_final
-		},
-		braop:{
-			alpha:braop_final,
-			num:braop_final,
-			" ":braop_final,
-			";":braop_final,
-			"\n":braop_final,
-			"\t":braop_final,
-			op:braop_final,
-			association:braop_final
-		},
-		bracl:{
-			alpha:bracl_final,
-			num:bracl_final,
-			" ":bracl_final,
-			";":bracl_final,
-			"\n":bracl_final,
-			"\t":bracl_final,
-			op:bracl_final,
-			association:bracl_final
+			terminators:assign_final,
+			association:assign_final,
+			"=":equal_final,
+			opsinequal:assign_final
 		},
 		or:{
-			"|":or_aux	
-		},
-		or_aux:{
-			"|":or_final,
-			alpha:or_final,
-			num:or_final,
-			" ":or_final,
-			";":or_final,
-			"\n":or_final,
-			"\t":or_final,
-			association:or_final
+			"|":or_final
 		},
 		and:{
-			"&":and_aux
+			"&":and_final
 		},
-		and_aux:{
-			"&":and_final,
-			alpha:and_final,
-			num:and_final,
-			" ":and_final,
-			";":and_final,
-			"\n":and_final,
-			"\t":and_final,
-			association:and_final
+		char:{
+		    alpha:char_aux,
+		    num:char_aux,
+		    " ":char_aux,
+		    ";":char_aux,
+		    "\t":char_aux,
+		    "\n":char_aux,
+		    op:char_aux,
+		    association:char_aux,
+		    specialsinapos:char_aux
+		},
+		char_aux:{
+		    "'":char_final
 		}
-		
 	},
 	
 	alias:{
 		num:["0","1","2","3","4","5","6","7","8","9"],
 		alpha:[a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u,v,w,x,y,z,A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z],
 		op:["+","-","*","/","=","<",">","|","&"],
+		opsinaddequal:["-","*","/","<",">","|","&"],
+		opsinequal:["+","-","*","/","<",">","|","&"],
+		opsinmul:["+","-","/","=","<",">","|","&"],
+		opsindiv:["+","-","*","=","<",">","|","&"],
 		association:["(",")","[","]","{","}"],
 		special:["!","?","$","^","'","#","%",":",".","_","-",","],
-		terminators:["\n","\t"," ",";","~"]
+		specialsinapos:["!","?","$","^","'","#","%",":",".","_","-",","],
+		terminators:["\n","\t"," ",";","·"]
 	},
 	
 	key_words:[new,return,char,int,float,double,class,public,void,private,String,if,else,while],
@@ -293,68 +174,8 @@
 		string:{
 			push:true
 		},
-		string_aux:{
-			push:false
-		},
-		suma:{
-			push:true
-		},
-		sumasuma_aux:{
-			push:true
-		},
-		sumaigual_aux:{
-			push:true
-		},
-		resta:{
-			push:true
-		},
-		mul:{
-			push:true
-		},
-		div:{
-			push:true
-		},
-		less:{
-			push:true
-		},
-		big:{
-			push:true
-		},
-		assign:{
-			push:true
-		},
-		assign_aux:{
-			push:true
-		},
-		or:{
-			push:true
-		},
-		or_aux:{
-			push:true
-		},
-		and:{
-			push:true
-		},
-		and_aux:{
-			push:true
-		},
-		braop:{
-			push:true
-		},
-		bracl:{
-			push:true
-		},
-		claop:{
-			push:true
-		},
-		clacl:{
-			push:true
-		},
-		keyop:{
-			push:true
-		},
-		keycl:{
-			push:true
+		char:{
+		  	push:true  
 		},
 		int_final:{
 			token_id:INT,
@@ -389,119 +210,127 @@
 			go_back:true
 		},
 		blk_final:{
-			token_id:BLK,
 			ignore:true
 		},
 		eos_final:{
 			token_id:EOS
 		},
 		eol_final:{
-			token_id:EOL,
 			ignore:true
 		},
 		tab_final:{
-			token_id:TAB,
 			ignore:true
 		},
 		suma_final:{
 			token_id:SUMA,
-			reset:true,
 			go_back:true
 		},
 		sumasuma_final:{
-			token_id:AUTOINC,
-			reset:true,
-			go_back:true
+			token_id:AUTOINC
 		},
 		sumaigual_final:{
-			token_id:SUMASSIGN,
-			reset:true,
-			go_back:true
+			token_id:SUMASSIGN
 		},
 		resta_final:{
-			token_id:RESTA,
-			reset:true,
-			go_back:true
+			token_id:RESTA
 		},
 		mul_final:{
-			token_id:MUL,
-			reset:true,
-			go_back:true
+			token_id:MUL
 		},
 		div_final:{
 			token_id:DIV,
-			reset:true,
 			go_back:true
 		},
 		less_final:{
-			token_id:LESSER,
-			reset:true,
-			go_back:true
+			token_id:LESSER
 		},
 		big_final:{
-			token_id:BIGGER,
-			reset:true,
-			go_back:true
+			token_id:BIGGER
 		},
 		assign_final:{
 			token_id:ASSIGN,
-			reset:true,
 			go_back:true
 		},
 		equal_final:{
-			token_id:EQUAL,
-			reset:true,
-			go_back:true
+			token_id:EQUAL
 		},
 		braop_final:{
-			token_id:BRACKETOPEN,
-			reset:true,
-			go_back:true
+			token_id:BRACKETOPEN
 		},
 		bracl_final:{
-			token_id:BRACKETCLOSE,
-			reset:true,
-			go_back:true
+			token_id:BRACKETCLOSE
 		},
 		claop_final:{
-			token_id:CLAPSOPEN,
-			reset:true,
-			go_back:true
+			token_id:CLAPSOPEN
 		},
 		clacl_final:{
-			token_id:CLAPSCLOSE,
-			reset:true,
-			go_back:true
+			token_id:CLAPSCLOSE
 		},
 		keyop_final:{
-			token_id:KEYOPEN,
-			reset:true,
-			go_back:true
+			token_id:KEYOPEN
 		},
 		keycl_final:{
-			token_id:KEYCLOSE,
-			reset:true,
-			go_back:true
+			token_id:KEYCLOSE
 		},
 		or_final:{
-			token_id:OR,
-			reset:true,
-			go_back:true
+			token_id:OR
 		},
 		and_final:{
-			token_id:AND,
-			reset:true,
-			go_back:true
+			token_id:AND
 		},
-		
+		comment_final:{
+		    ignore:true
+		},
+		char_final:{
+		    token_id:CHAR,
+		    return_value:true,
+		    reset:true
+		},
 		eof_final:{
 		    null_token:true
 		}
 		
 	},
 	
-	tokenCodes:{
-		"INT":1
-		
+	token_codes:{
+		INT:1,
+		REAL:2,
+		ID:3,
+		STRING:4,
+		STR_INC:5,
+		EOS:6,
+		SUMA:7,
+		AUTOINC:8,
+		SUMASSIGN:9,
+		RESTA:10,
+		MUL:11,
+		DIV:12,
+		LESSER:13,
+		BIGGER:14,
+		ASSIGN:15,
+		EQUAL:16,
+		BRACKETOPEN:17,
+		BRACKETCLOSE:18,
+		CLAPSOPEN:19,
+		CLAPSCLOSE:20,
+		KEYOPEN:21,
+		KEYCLOSE:22,
+		OR:23,
+		AND:24,
+		CHAR:25,
+		new:50,
+		return:51,
+		char:52,
+		int:53,
+		float:54,
+		double:55,
+		class:56,
+		public:57,
+		void:58,
+		if:59,
+		else:60,
+		while:61,
+		private:62,
+		String:63
 	}
 }
