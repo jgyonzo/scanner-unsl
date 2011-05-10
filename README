@@ -1,0 +1,93 @@
+Implementación:
+    Hay 2 clases principales, Scanner y ScannerInvoker.
+
+Scanner es un analizador lexicográfico genérico, que trabaja en base a una configuración establecida en un archivo con formato JSON.
+Se inicializa pasando como parámetro al constructor el path y nombre al archivo de configuración.
+Su método principal es next(), que devuelve el próximo token reconocido por el scanner.
+
+ScannerInvoker contiene el main(), se le pasan 2 argumentos en el siguiente orden :
+
+1- /path-to-source/source.java
+2- /path-to-conf/conf.json
+
+ScannerInvoker hará sucesivas llamadas al método next() de Scanner, y como resultado obtendremos el archivo salida.tok con una lista de los tokens reconocidos con el siguiente formato:
+(code,value)
+En caso de que el token no tenga un valor asociado, tendrá el siguiente formato:
+(code,)
+
+Tenemos 2 archivos de configuración, uno para HTML y otro para JAVA que se encuentran en el raíz del proyecto (htmlconf.json y javaconf.json respectivamente). En ellos se definen las transiciones, las acciones semánticas asociadas a cada estado, las palabras clave y los códigos de los tokens devueltos.
+Ejemplo de notación para representar una transición con JSON:
+{
+
+delta:{
+
+    q0:{
+
+        “a”:estado2,
+
+        “1”:estado3_final
+
+    }
+
+}
+}
+Donde q0, estado2 y estado3_final son estados del autómata, y por convención, q0 siempre es el estado inicial y todos los estados cuyo nombre concluye con “_final” son considerados estados finales.
+“a” y “1” son caracteres del alfabeto del autómata.
+
+Hay algunas facilidades para representar transiciones y hacer mas legible el comportamiento del autómata, como el uso de alias para agrupar caracteres, que luego son expandidos por el scanner simbolizando una única transición por caracter, por ejemplo:
+
+{
+
+delta:{
+
+    q0:{
+
+        alpha:estado2,
+
+        “1”:estado3_final
+
+    }
+
+},
+
+alias:{
+
+alpha:[‘a’,’b’,....,’Z’]
+
+}
+}
+
+donde alpha es un alias que contiene todos las letras definido como un JSONArray.
+
+Las palabras reservadas/clave también se encuentran enumeradas en un JSONArray de esta forma:
+
+key_words:[class,return,...]
+
+Se ha tratado de comentar lo mas posible el codigo.
+
+
+
+Consideraciones:
+
+HTML:
+1) Los espacios en blanco, saltos de linea y tabulaciones son significativos solamente en en identificadores, por ejemplo si tenemos este input:
+<HTML
+>
+identificamos los tokens (<,), (HTML,) y (>,)
+
+En cambio si tenemos este input:
+<P>esto es un texto
+con salto de linea y espacios</P>
+
+identificamos los tokens
+(<,)
+(P,)
+(>,)
+(TEXT, esto es un texto
+con salto de linea y espacios)
+(<,)
+(/,)
+(P,)
+(>,)
+
+2) Tanto CDATA como {ASCII} unifican con un mismo token TEXT.
