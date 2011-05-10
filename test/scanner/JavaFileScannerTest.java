@@ -1,4 +1,4 @@
-package scanner.java;
+package scanner;
 
 import static org.junit.Assert.assertTrue;
 import static scanner.util.Util.addAll;

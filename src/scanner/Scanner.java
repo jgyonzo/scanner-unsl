@@ -19,11 +19,27 @@ import org.codehaus.jettison.json.JSONObject;
 
 import scanner.token.Token;
 
+/**
+ * Generic Scanner - Automatas y Lenguajes 2011
+ * @author jgyonzo-msoria
+ */
 public class Scanner {
 	private String currentState;
+	/**
+	 * used to push character of a lexeme
+	 */
 	private String cola;
+	/**
+	 * transitions: state x char -> state
+	 */
 	private JSONObject delta;
+	/**
+	 * semantic actions associated to states
+	 */
 	private JSONObject stateActions;
+	/**
+	 * map with (token_name,numeric_code)
+	 */
 	private JSONObject tokenCodes;
 	private Set<String> keyWords;
 	private BufferedReader sourceReader;
@@ -109,7 +125,10 @@ public class Scanner {
 			keyWords = asSet(keyw);
 		}
 	}
-	
+	/**
+	 * closes the source reader
+	 * @throws IOException
+	 */
 	public void closeFile() throws IOException{
 		sourceReader.close();
 	}
@@ -217,6 +236,19 @@ public class Scanner {
 						// ejecuta las acciones de estado no final
 						if (actions.has("push") && actions.getBoolean("push"))
 							cola += currentChar;
+						else if(actions.has("special_push") && actions.getBoolean("special_push")){//CASO ESPECIAL PARA HTML
+							boolean isKey = keyWords.contains(cola);
+							if(isKey){ //lo que vi hasta ahora es una palabra clave
+								token = new Token();
+								token.setCode(cola);
+								token.setValue("");
+								token.setNumCode(tokenCodes.getInt(token.getCode()));
+								resetLexeme();
+								doEpsilon();
+							}else{
+								cola += currentChar;
+							}
+						}
 					}
 				}
 			} else {

@@ -18,10 +18,20 @@
 			alpha:texto,
 			num:texto,
 			miscsinigual:texto,
+			special_push:texto_aux,
 			"=":texto_final,
 			terminators:texto_final
 		},
+		texto_aux:{
+		  	alpha:texto,
+		  	num:texto,
+		  	miscsinigual:texto,
+		  	special_push:texto,
+		  	"=":texto_final,
+			terminators:texto_final
+		},
 		textocom_aux:{
+			special_push:textocom,
 			alpha:textocom,
 			num:textocom,
 			misc:textocom,
@@ -29,6 +39,7 @@
 			terminators:textocom
 		},
 		textocom:{
+			special_push:textocom,
 			alpha:textocom,
 			num:textocom,
 			misc:textocom,
@@ -43,10 +54,11 @@
 		misc:["*","?","!","/","-","_",":",".","=","^","+","-"],
 		miscsinigual:["*","?","!","/","-","_",":",".","^","+","-"],		
 		alpha:[a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u,v,w,x,y,z,A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z],
-		terminators:["\n","\t"," ","<",">","·"]
+		terminators:["<",">","·"],
+		special_push:["\n","\t"," "]
 	},
 
-	key_words:[title,class,href,A,P,BODY,TItlE,profile,HEAD,HTML],
+	key_words:[title,class,href,A,P,BODY,TITLE,profile,HEAD,HTML],
 
 	stateActions:{
 		texto:{
@@ -54,6 +66,9 @@
 		},
 		textocom:{
 			push:true
+		},
+		texto_aux:{
+		    special_push:true
 		},
 		texto_final:{
 			token_id:TEXT,
