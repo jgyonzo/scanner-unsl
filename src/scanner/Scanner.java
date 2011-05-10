@@ -210,8 +210,8 @@ public class Scanner {
 						}
 						token = new Token();
 						token.setCode((String) actions.get("token_id"));
-						if (returnValue) {
-							if (checkLen) {
+						if (returnValue) { //this token should return value (lexeme in cola)
+							if (checkLen) { //we have to check the length of the lexeme
 								Integer maxLen = actions.getInt("max_length");
 								if (cola.length() > maxLen) {
 									cola = cola.substring(0, maxLen);
@@ -220,13 +220,13 @@ public class Scanner {
 							}
 							token.setValue(cola);
 						}
-						if (reset) {
+						if (reset) { //cola = ""
 							resetLexeme();
 						}
-						if (goBack) {
+						if (goBack) { //reprocess char (pos--)
 							goBack();
 						}
-						if (checkKeyWord && keyWords.contains(token.getValue())) {
+						if (checkKeyWord && keyWords.contains(token.getValue())) { //we have to check if this lexeme is a keyword
 							token.setCode(token.getValue());
 							token.setValue("");
 						}
@@ -234,11 +234,11 @@ public class Scanner {
 						doEpsilon();
 					} else {
 						// ejecuta las acciones de estado no final
-						if (actions.has("push") && actions.getBoolean("push"))
+						if (actions.has("push") && actions.getBoolean("push")) //push the current char to the queue
 							cola += currentChar;
-						else if(actions.has("special_push") && actions.getBoolean("special_push")){//CASO ESPECIAL PARA HTML
+						else if(actions.has("special_push") && actions.getBoolean("special_push")){//Special case for html
 							boolean isKey = keyWords.contains(cola);
-							if(isKey){ //lo que vi hasta ahora es una palabra clave
+							if(isKey){ //check if what I read till now is a keyword
 								token = new Token();
 								token.setCode(cola);
 								token.setValue("");
