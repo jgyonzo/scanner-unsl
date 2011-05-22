@@ -44,6 +44,9 @@ public class Scanner {
 	private Set<String> keyWords;
 	private BufferedReader sourceReader;
 	private int pos;
+	private int line = 1;
+	private int column = 0;
+	private String currentChar;
 	
 	/**
 	 * Opens a reader with the given filename
@@ -149,6 +152,9 @@ public class Scanner {
 	 * @throws IOException
 	 */
 	private void goBack() throws IOException{
+		if("\n".equals(currentChar)){
+			line--;
+		}
 		pos--;
 		sourceReader.reset();
 	}
@@ -178,12 +184,13 @@ public class Scanner {
 			
 			//read next char and detect EOF
 			int charint = getNextChar();
-			String currentChar;
 			if(charint == -1){
 				currentChar = "·"; //character to simulate EOF
 			}else{
 				currentChar = Character.valueOf((char)charint).toString();
 			}
+			
+			countLineAndCol(currentChar);
 			
 			//processing the char
 			if (delta.getJSONObject(currentState).has(currentChar)) {
@@ -253,8 +260,7 @@ public class Scanner {
 				}
 			} else {
 				doEpsilon();
-				goBack();
-				System.out.println("ERROR - illegal transition at pos=" + pos);
+				System.out.println("ERROR at line=" + line + " column=" + column);
 			}
 		}
 		return token;
@@ -271,5 +277,14 @@ public class Scanner {
 			tokens.add(token);
 		}
 		return tokens;
+	}
+	
+	private void countLineAndCol(String curChar){
+		if("\n".equals(curChar)){
+			line++;
+			column = 0;
+		}else{
+			column++;
+		}
 	}
 }

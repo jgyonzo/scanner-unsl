@@ -8,6 +8,7 @@
 			"\"":string_aux,
 			"\n":eol_final,
 			"\t":tab_final,
+			"\r":carr_final,
 			"+":suma,
 			"-":resta_final,
 			"*":mul_final,
@@ -153,7 +154,7 @@
 		association:["(",")","[","]","{","}"],
 		special:["!","?","$","^","'","#","%",":",".","_","-",","],
 		specialsinapos:["!","?","$","^","'","#","%",":",".","_","-",","],
-		terminators:["\n","\t"," ",";","·"]
+		terminators:["\n","\t"," ",";","·","\r"]
 	},
 	
 	key_words:[new,return,char,int,float,double,class,public,void,private,String,if,else,while],
@@ -219,6 +220,9 @@
 			ignore:true
 		},
 		tab_final:{
+			ignore:true
+		},
+		carr_final:{
 			ignore:true
 		},
 		suma_final:{

@@ -1,5 +1,25 @@
-<A href="anur
-i"> a93dtd1! </A> 
-<HTML
-> esto     
-es un html </HTML>
+a #
+ab12 
+class
+new
+return
+123
+123.12                      
+{
+(
+			
+)
+}
+#
++
+*
+/
+-
+=
+==
+345=87
+bsd
+int
+<
+>
+a
