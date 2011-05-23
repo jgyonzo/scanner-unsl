@@ -216,7 +216,7 @@
 			ignore:true
 		},
 		coma_final:{
-			ignore:true
+			token_id:COMA
 		},
 		eos_final:{
 			token_id:EOS
@@ -327,6 +327,7 @@
 		OR:23,
 		AND:24,
 		CHAR:25,
+		COMA:26,
 		new:50,
 		return:51,
 		char:52,
