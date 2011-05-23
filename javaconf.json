@@ -5,6 +5,7 @@
 			num:int,
 			" ":blk_final,
 			";":eos_final,
+			",":coma_final,
 			"\"":string_aux,
 			"\n":eol_final,
 			"\t":tab_final,
@@ -65,6 +66,7 @@
 			alpha:string,
 			" ":string,
 			";":string,
+			",":string,
 			"\t":string,
 			"\"":string_final,
 			"\n":string_inc_final,
@@ -152,9 +154,9 @@
 		opsinmul:["+","-","/","=","<",">","|","&"],
 		opsindiv:["+","-","*","=","<",">","|","&"],
 		association:["(",")","[","]","{","}"],
-		special:["!","?","$","^","'","#","%",":",".","_","-",","],
-		specialsinapos:["!","?","$","^","'","#","%",":",".","_","-",","],
-		terminators:["\n","\t"," ",";","·","\r"]
+		special:["!","?","$","^","'","#","%",":",".","_","-"],
+		specialsinapos:["!","?","$","^","'","#","%",":",".","_","-"],
+		terminators:["\n","\t"," ",";","·","\r",","]
 	},
 	
 	key_words:[new,return,char,int,float,double,class,public,void,private,String,if,else,while],
@@ -211,6 +213,9 @@
 			go_back:true
 		},
 		blk_final:{
+			ignore:true
+		},
+		coma_final:{
 			ignore:true
 		},
 		eos_final:{

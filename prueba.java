@@ -1,5 +1,5 @@
 a #
-ab12 
+int ab12, est; 
 class
 new
 return
@@ -14,6 +14,7 @@ return
 +
 *
 /
+,
 -
 =
 ==
@@ -22,4 +23,4 @@ bsd
 int
 <
 >
-a
+suma(x,3);
