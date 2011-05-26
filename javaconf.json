@@ -56,22 +56,22 @@
 		string_aux:{
 			num:string,
 			alpha:string,
-			terminators:string,
+			terminators_sin_eol:string,
+			"\n":string_inc_final,
 			"\"":string_final,
 			op:string,
-			association:string
+			association:string,
+			special:string
 		},
 		string:{
 			num:string,
 			alpha:string,
-			" ":string,
-			";":string,
-			",":string,
-			"\t":string,
-			"\"":string_final,
+			terminators_sin_eol:string,
 			"\n":string_inc_final,
+			"\"":string_final,
 			op:string,
-			association:string
+			association:string,
+			special:string
 		},
 		suma:{
 			alpha:suma_final,
@@ -94,11 +94,8 @@
 		comment:{
 		  alpha:comment,
 		  num:comment,
-		  " ":comment,
-		  ";":comment,
-		  "\t":comment,
-		  "\n":comment,
-		  "·":eof_final,
+		  special:comment,
+		  terminators:comment,
 		  association:comment,
 		  opsinmul:comment,
 		  "*":comment_aux
@@ -107,11 +104,8 @@
 		  "/":comment_final,
 		  alpha:comment,
 		  num:comment,
-		  " ":comment,
-		  ";":comment,
-		  "\t":comment,
-		  "\n":comment,
-		  "·":eof_final,
+		  special:comment,
+		  terminators:comment,
 		  association:comment,
 		  opsindiv:comment
 		},
@@ -132,10 +126,7 @@
 		char:{
 		    alpha:char_aux,
 		    num:char_aux,
-		    " ":char_aux,
-		    ";":char_aux,
-		    "\t":char_aux,
-		    "\n":char_aux,
+		    terminators:char_aux,
 		    op:char_aux,
 		    association:char_aux,
 		    specialsinapos:char_aux
@@ -154,9 +145,10 @@
 		opsinmul:["+","-","/","=","<",">","|","&"],
 		opsindiv:["+","-","*","=","<",">","|","&"],
 		association:["(",")","[","]","{","}"],
-		special:["!","?","$","^","'","#","%",":",".","_","-"],
+		special:["!","?","$","^","'","#","%",":",".","_","-","@","¬","°","¨","~"],
 		specialsinapos:["!","?","$","^","'","#","%",":",".","_","-"],
-		terminators:["\n","\t"," ",";","·","\r",","]
+		terminators:["\n","\t"," ",";","·","\r",","],
+		terminators_sin_eol:["\t"," ",";","·","\r",","]
 	},
 	
 	key_words:[new,return,char,int,float,double,class,public,void,private,String,if,else,while],
@@ -177,7 +169,7 @@
 		string:{
 			push:true
 		},
-		char:{
+		char_aux:{
 		  	push:true  
 		},
 		int_final:{

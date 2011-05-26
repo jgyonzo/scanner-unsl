@@ -222,7 +222,7 @@ public class Scanner {
 								Integer maxLen = actions.getInt("max_length");
 								if (cola.length() > maxLen) {
 									cola = cola.substring(0, maxLen);
-									System.out.println("WARNING: element longer than max_length at pos="+ pos);
+									System.out.println("WARNING: element longer than max_length at line="+ (line-1));
 								}
 							}
 							token.setValue(cola);
