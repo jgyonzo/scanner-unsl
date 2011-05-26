@@ -95,7 +95,8 @@
 		  alpha:comment,
 		  num:comment,
 		  special:comment,
-		  terminators:comment,
+		  terminators_sin_eof:comment,
+		  "·":eof_final,
 		  association:comment,
 		  opsinmul:comment,
 		  "*":comment_aux
@@ -105,7 +106,8 @@
 		  alpha:comment,
 		  num:comment,
 		  special:comment,
-		  terminators:comment,
+		  terminators_sin_eof:comment,
+		  "·":eof_final,
 		  association:comment,
 		  opsindiv:comment
 		},
@@ -148,6 +150,7 @@
 		special:["!","?","$","^","'","#","%",":",".","_","-","@","¬","°","¨","~"],
 		specialsinapos:["!","?","$","^","'","#","%",":",".","_","-"],
 		terminators:["\n","\t"," ",";","·","\r",","],
+		terminators_sin_eof:["\n","\t"," ",";","\r",","],
 		terminators_sin_eol:["\t"," ",";","·","\r",","]
 	},
 	
