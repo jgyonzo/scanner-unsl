@@ -20,6 +20,7 @@
 			num:texto,
 			miscsinigual:texto,
 			special_push:texto_aux,
+			"\"":texto,
 			"=":texto_final,
 			terminators:texto_final
 		},
@@ -28,35 +29,42 @@
 		  	num:texto,
 		  	miscsinigual:texto,
 		  	special_push:texto,
+		  	"\"":texto,
 		  	"=":texto_final,
 			terminators:texto_final
 		},
 		textocom_aux:{
-			special_push:textocom,
+			special_push_sineol:textocom,
+			"\n":textocom_inc_final,
 			alpha:textocom,
 			num:textocom,
 			misc:textocom,
 			"\"":textocom_final,
-			terminators:textocom
+			terminators_sineof:textocom,
+			"·":textocom_inc_final
 		},
 		textocom:{
-			special_push:textocom,
+			special_push_sineol:textocom,
+			"·":textocom_inc_final,
+			"\n":textocom_inc_final,
 			alpha:textocom,
 			num:textocom,
 			misc:textocom,
 			"\"":textocom_final,
-			terminators:textocom
+			terminators_sineof:textocom
 		},
 		
 	},
 	
 	alias:{
 		num:["0","1","2","3","4","5","6","7","8","9"],
-		misc:["*","?","!","/","-","_",":",".","=","^","+","-",","],
-		miscsinigual:["*","?","!","/","-","_",":",".","^","+","-",","],		
+		misc:["*","?","!","/","-","_",":",".","=","^","+","-",",","'"],
+		miscsinigual:["*","?","!","/","-","_",":",".","^","+","-",",","'"],		
 		alpha:[a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u,v,w,x,y,z,A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z],
+		terminators_sineof:["<",">"],
 		terminators:["<",">","·"],
-		special_push:["\n","\t"," ","\r"]
+		special_push:["\n","\t"," ","\r"],
+		special_push_sineol:["\t"," ","\r"]
 	},
 
 	key_words:[title,class,href,A,P,BODY,TITLE,profile,HEAD,HTML],
@@ -80,6 +88,11 @@
 		},
 		textocom_final:{
 			token_id:QUOTEDTEXT,
+			return_value:true,
+			reset:true
+		},
+		textocom_inc_final:{
+			token_id:QUOTEDTEXT_INCOMPLETE,
 			return_value:true,
 			reset:true
 		},
@@ -119,6 +132,7 @@
 		CLAPSCLOSE:4,
 		BAR:5,
 		ASSIGN:6,
+		QUOTEDTEXT_INCOMPLETE:7,
 		HTML:20,
 		HEAD:21,
 		TITLE:22,
