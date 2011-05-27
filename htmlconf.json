@@ -10,7 +10,7 @@
 			"\t":tab_final,
 			"\r":carr_final,
 			"\"":textocom_aux,
-			"<":claop_final,
+			"<":comment_aux1,
 			">":clacl_final,
 			"/":barra_final,
 			"·":eof_final
@@ -53,18 +53,48 @@
 			"\"":textocom_final,
 			terminators_sineof:textocom
 		},
-		
+		comment_aux1:{
+			"!":comment_aux2,
+			"·":eof_final,
+			all_without_excl:claop_final
+		},
+		comment_aux2:{
+			"-":comment_aux3,
+			"·":eof_final
+		},
+		comment_aux3:{
+			"-":comment,
+			"·":eof_final,
+		},
+		comment:{
+			all_without_minus:comment,
+			"·":eof_final,
+			"-":comment_aux4
+		},
+		comment_aux4:{
+			all_without_minus:comment,
+			"·":eof_final,
+			"-":comment_aux5
+		},
+		comment_aux5:{
+			">":comment_final,
+			"·":eof_final,
+			all_without_clapopen: comment
+		}
 	},
 	
 	alias:{
 		num:["0","1","2","3","4","5","6","7","8","9"],
-		misc:["*","?","!","/","-","_",":",".","=","^","+","-",",","'"],
-		miscsinigual:["*","?","!","/","-","_",":",".","^","+","-",",","'"],		
+		misc:["*","?","!","/","-","_",":",".","=","^","+","-",",","'","(",")","%","¡","¿","¬","|","°","#","{","}","[","]","~","$","&",";"],
+		miscsinigual:["*","?","!","/","-","_",":",".","^","+","-",",","'","(",")","%","¡","¿","¬","|","°","#","{","}","[","]","~","$","&",";"],		
 		alpha:[a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u,v,w,x,y,z,A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z],
 		terminators_sineof:["<",">"],
 		terminators:["<",">","·"],
 		special_push:["\n","\t"," ","\r"],
-		special_push_sineol:["\t"," ","\r"]
+		special_push_sineol:["\t"," ","\r"],
+		all_without_excl:["0","1","2","3","4","5","6","7","8","9","*","?","/","-","_",":",".","=","^","+","-",",","'","(",")","%","¡","¿","¬","|","°","#","{","}","[","]","~","$","&",";",a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u,v,w,x,y,z,A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z,"<",">","\n","\t"," ","\r","\""],
+		all_without_minus:["0","1","2","3","4","5","6","7","8","9","!","*","?","/","_",":",".","=","^","+",",","'","(",")","%","¡","¿","¬","|","°","#","{","}","[","]","~","$","&",";",a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u,v,w,x,y,z,A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z,"<",">","\n","\t"," ","\r","\""],
+		all_without_clapopen:["0","1","2","3","4","5","6","7","8","9","-","!","*","?","/","_",":",".","=","^","+",",","'","(",")","%","¡","¿","¬","|","°","#","{","}","[","]","~","$","&",";",a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u,v,w,x,y,z,A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z,"<","\n","\t"," ","\r","\""]
 	},
 
 	key_words:[title,class,href,A,P,BODY,TITLE,profile,HEAD,HTML],
@@ -109,7 +139,9 @@
 			ignore:true
 		},
 		claop_final:{
-			token_id:CLAPSOPEN
+			token_id:CLAPSOPEN,
+			go_back:true,
+			reset:true
 		},
 		clacl_final:{
 			token_id:CLAPSCLOSE
@@ -122,6 +154,10 @@
 		},
 		eof_final:{
 			null_token:true
+		},
+		comment_final:{
+			ignore:true,
+			reset:true
 		}
 	},
 	

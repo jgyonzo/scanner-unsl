@@ -12,6 +12,7 @@ float
 double
 [
 ]
+[10]
 if
 else
 while
